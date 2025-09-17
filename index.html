@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Education Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+<div class="centered-container">
+    <div class="glass-box">
+        <div class="product-header">
+            <span class="product-logo"><i class="fas fa-graduation-cap"></i></span>
+            <span class="product-title">Smart Education</span>
+            <span class="product-slogan">Empowering minds, shaping futures</span>
+        </div>
+        <div class="box-contents">
+            <div class="welcome">Welcome</div>
+            <div class="welcome-sub">Sign in to continue your learning journey</div>
+            <div class="tab-switch">
+                <button class="tab-btn active" id="studentBtn" type="button">
+                    <i class="fas fa-user-graduate"></i> Student
+                </button>
+                <button class="tab-btn" id="professorBtn" type="button">
+                    <i class="fas fa-chalkboard-teacher"></i> Professor
+                </button>
+            </div>
+            <form class="login-form" autocomplete="off">
+                <div class="input-wrap">
+                    <span class="input-icon"><i class="fas fa-envelope"></i></span>
+                    <input type="email" class="login-input" placeholder="Email Address" required autocomplete="username">
+                </div>
+                <div class="input-wrap">
+                    <span class="input-icon"><i class="fas fa-lock"></i></span>
+                    <input type="password" class="login-input" placeholder="Password" required autocomplete="current-password" id="password">
+                    <button type="button" class="input-eye" id="togglePassword" tabindex="0">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <div class="options-row">
+                    <label class="remember-wrap">
+                        <input type="checkbox" class="remember-input"> Remember me
+                    </label>
+                </div>
+                <button class="login-btn" type="submit">Sign In</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
