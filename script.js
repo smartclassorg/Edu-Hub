@@ -24,8 +24,19 @@ togglePassword.onkeydown = function(e) {
     if (e.key === " " || e.key === "Enter") this.onclick();
 };
 
-// Prevent form submit for demo
+// MODIFIED THIS SECTION
+// Handle form submission and navigate to the correct page.
 document.querySelector('.login-form').onsubmit = function(e) {
+    // Prevent the form from submitting in the default way
     e.preventDefault();
-    alert('Login submitted! (demo)');
+
+    // ADDED THIS LOGIC
+    // Check which button is active to decide where to go
+    if (studentBtn.classList.contains('active')) {
+        // If student tab is active, go to student home
+        window.location.href = 'studenthome.html';
+    } else {
+        // Otherwise, go to professor home
+        window.location.href = 'profhome.html';
+    }
 };

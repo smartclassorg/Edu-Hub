@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Education</title>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- linking external CSS file -->
+    <link rel="stylesheet" href="styles1.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">Smart Education</div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#help">Help</a></li>
+                </ul>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1 class="fade-in-up">Welcome professor</h1>
+            <p class="fade-in-up">Your comprehensive learning management platform designed to streamline education and enhance the teaching experience for Professor.</p>
+        </div>
+    </section>
+
+    <!-- Main Navigation -->
+    <section class="main-nav">
+        <div class="container">
+            <div class="nav-grid">
+                <!-- Timetable Card -->
+                <div class="nav-card fade-in-up" onclick="handleNavigation('timetable')">
+                    <div class="icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>TIMETABLE</h3>
+                    <p>Access your personalized class schedule, view upcoming sessions, and manage your academic calendar efficiently.</p>
+                    <button class="btn">View Timetable</button>
+                </div>
+
+                <!-- Attendance Card -->
+                <div class="nav-card fade-in-up" onclick="handleNavigation('attendance')">
+                    <div class="icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3>ATTENDANCE</h3>
+                    <p>Track your attendance records, view attendance statistics, and stay updated on your participation status.</p>
+                    <button class="btn">Check Attendance</button>
+                </div>
+
+                <!-- Smart Board Sessions Card -->
+                <div class="nav-card fade-in-up" onclick="handleNavigation('smartboard')">
+                    <div class="icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>SMART BOARD SESSIONS</h3>
+                    <p>Join interactive smart board sessions, access recorded lessons, and participate in collaborative learning experiences.</p>
+                    <button class="btn">Join Sessions</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <!-- linking external JavaScript file -->
+    <script src="script1.js"></script>
+</body>
+</html>
