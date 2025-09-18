@@ -1,29 +1,3 @@
-// Mobile menu toggle
-const mobileMenuBtn = document.getElementById("mobileMenuBtn")
-const navLinks = document.getElementById("navLinks")
-
-mobileMenuBtn.addEventListener("click", () => {
-  navLinks.classList.toggle("active")
-  const icon = mobileMenuBtn.querySelector("i")
-  if (navLinks.classList.contains("active")) {
-    icon.classList.remove("fa-bars")
-    icon.classList.add("fa-times")
-  } else {
-    icon.classList.remove("fa-times")
-    icon.classList.add("fa-bars")
-  }
-})
-
-// Close mobile menu when clicking on a link
-navLinks.addEventListener("click", (e) => {
-  if (e.target.tagName === "A") {
-    navLinks.classList.remove("active")
-    const icon = mobileMenuBtn.querySelector("i")
-    icon.classList.remove("fa-times")
-    icon.classList.add("fa-bars")
-  }
-})
-
 // Handle navigation card clicks
 function handleNavigation(section) {
   // Add click animation
@@ -44,6 +18,29 @@ function handleNavigation(section) {
 
   alert(`Navigating to ${sectionNames[section]} page...`)
 }
+
+  // Toggle dark mode
+  document.getElementById('darkModeToggle').addEventListener('change', function() {
+  document.body.classList.toggle('dark-mode', this.checked);
+  })
+
+
+  // Sidebar toggle
+  const sidebarToggle = document.querySelector('.sidebar-toggle');
+  const sidebar = document.querySelector('.sidebar');
+
+  sidebarToggle.addEventListener('click', function() {
+    sidebar.classList.toggle('active');
+  });
+
+  document.addEventListener('click', function(e) {
+    if (
+      !sidebar.contains(e.target) &&
+      !sidebarToggle.contains(e.target)
+    ) {
+      sidebar.classList.remove('active');
+    }
+  })
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {

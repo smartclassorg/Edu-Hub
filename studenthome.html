@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Education</title>
+    <title>EduHub - Student</title>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- linking external CSS file -->
@@ -14,25 +14,40 @@
     <header class="header">
         <div class="container">
             <nav class="nav">
-                <div class="logo">Smart Education</div>
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="#help">Help</a></li>
-                </ul>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <div class="logo">EduHub</div>
+                <label class="dark-mode-switch">
+                    <input type="checkbox" id="darkModeToggle">
+                    <span class="slider"></span>
+                    <i class="fas fa-moon"></i>
+                </label>
             </nav>
         </div>
     </header>
+
+    <!-- Sidebar-->
+    <div class="sidebar-toggle">
+        <i class="fas fa-bars"></i>
+    </div>
+    <aside class="sidebar">
+        <div class="profile-section">
+            <img src="profile-pic.jpg" alt="Profile Picture" class="profile-pic">
+            <div class="profile-name">Student Name</div>
+        </div>
+        <div class="sidebar-info">
+            <div class="professor-name">
+                <strong>Faculty</strong>
+            </div>
+            <div class="peers-list">
+                <strong>Peers</strong>
+            </div>
+        </div>
+    </aside>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
             <h1 class="fade-in-up">Welcome Student</h1>
-            <p class="fade-in-up">Your comprehensive learning platform designed to streamline education management and enhance the learning experience for students and educators.</p>
+            <p class="fade-in-up">Your comprehensive learning platform designed to streamline education management and enhance the learning experience for Students.</p>
         </div>
     </section>
 
