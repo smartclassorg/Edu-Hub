@@ -6,56 +6,39 @@
     <title>EduHub - Student</title>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- linking external CSS file -->
     <link rel="stylesheet" href="styles1.css">
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <div class="logo">EduHub</div>
+        <nav class="nav">
+            <div class="logo">EduHub</div>
+            <div class="header-right">
+                  <div class="user-profile">
+            <div class="avatar"></div>
+            <div>
+                <div style="font-weight: bold;">Alex Chen</div>
+                <div style="font-size: 0.8rem; color: rgba(0, 0, 0, 0.7);">Student</div>
+            </div>
+        </div>
                 <label class="dark-mode-switch">
                     <input type="checkbox" id="darkModeToggle">
                     <span class="slider"></span>
                     <i class="fas fa-moon"></i>
                 </label>
-            </nav>
-        </div>
+            </div>
+        </nav>
     </header>
 
-    <!-- Sidebar-->
-    <div class="sidebar-toggle">
-        <i class="fas fa-bars"></i>
-    </div>
-    <aside class="sidebar">
-        <div class="profile-section">
-            <img src="profile-pic.jpg" alt="Profile Picture" class="profile-pic">
-            <div class="profile-name">Student Name</div>
-        </div>
-        <div class="sidebar-info">
-            <div class="professor-name">
-                <strong>Faculty</strong>
-            </div>
-            <div class="peers-list">
-                <strong>Peers</strong>
-            </div>
-        </div>
-    </aside>
-
-    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
-            <h1 class="fade-in-up">Welcome Student</h1>
+            <h1 class="fade-in-up">Welcome Alex Chen</h1>
             <p class="fade-in-up">Your comprehensive learning platform designed to streamline education management and enhance the learning experience for Students.</p>
         </div>
     </section>
 
-    <!-- Main Navigation -->
     <section class="main-nav">
         <div class="container">
             <div class="nav-grid">
-                <!-- Timetable Card -->
                 <div class="nav-card fade-in-up" onclick="handleNavigation('timetable')">
                     <div class="icon">
                         <i class="fas fa-calendar-alt"></i>
@@ -65,7 +48,6 @@
                     <button class="btn">View Timetable</button>
                 </div>
 
-                <!-- Attendance Card -->
                 <div class="nav-card fade-in-up" onclick="handleNavigation('attendance')">
                     <div class="icon">
                         <i class="fas fa-user-check"></i>
@@ -75,7 +57,6 @@
                     <button class="btn">Check Attendance</button>
                 </div>
 
-                <!-- Smart Board Sessions Card -->
                 <div class="nav-card fade-in-up" onclick="handleNavigation('smartboard')">
                     <div class="icon">
                         <i class="fas fa-chalkboard-teacher"></i>
@@ -88,8 +69,6 @@
         </div>
     </section>
 
-   
-    <!-- linking external JavaScript file -->
     <script src="script1.js"></script>
 </body>
 </html>

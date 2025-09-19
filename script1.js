@@ -1,4 +1,3 @@
-// Handle navigation card clicks
 function handleNavigation(section) {
   // Add click animation
   event.currentTarget.style.transform = "scale(0.95)"
@@ -6,6 +5,22 @@ function handleNavigation(section) {
     event.currentTarget.style.transform = ""
   }, 150)
 
+  // Log navigation
+  console.log(`Navigating to ${section} section`)
+
+  // --- THIS IS THE MODIFIED PART ---
+  if (section === 'timetable') {
+    // Redirect to the timetable page
+    window.location.href = 'tt.html';
+  } else {
+    // Show alert for other sections for demonstration
+    const sectionNames = {
+      attendance: "Attendance",
+      smartboard: "Smart Board Sessions",
+    }
+    alert(`Navigating to ${sectionNames[section]} page...`)
+  }
+}
   // Log navigation (in a real app, this would navigate to the respective page)
   console.log(`Navigating to ${section} section`)
 
@@ -17,30 +32,18 @@ function handleNavigation(section) {
   }
 
   alert(`Navigating to ${sectionNames[section]} page...`)
-}
-
-  // Toggle dark mode
-  document.getElementById('darkModeToggle').addEventListener('change', function() {
-  document.body.classList.toggle('dark-mode', this.checked);
-  })
 
 
-  // Sidebar toggle
-  const sidebarToggle = document.querySelector('.sidebar-toggle');
-  const sidebar = document.querySelector('.sidebar');
+// Toggle dark mode
+document.getElementById("darkModeToggle").addEventListener("change", function () {
+  document.body.classList.toggle("dark-mode", this.checked)
+})
 
-  sidebarToggle.addEventListener('click', function() {
-    sidebar.classList.toggle('active');
-  });
-
-  document.addEventListener('click', function(e) {
-    if (
-      !sidebar.contains(e.target) &&
-      !sidebarToggle.contains(e.target)
-    ) {
-      sidebar.classList.remove('active');
-    }
-  })
+document.addEventListener("click", (e) => {
+  if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+    sidebar.classList.remove("active")
+  }
+})
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
