@@ -154,6 +154,17 @@ color: var(--foreground);
 margin-bottom: 0.5rem;
 }
 
+.class-button {
+  border:none;
+  background-color: white;
+  cursor: pointer;
+  
+}
+.class-button :hover {
+  opacity: 0.6;
+  border: none;
+}
+
 .class-room {
  color: var(--muted-foreground);
  font-size: 0.9rem;
