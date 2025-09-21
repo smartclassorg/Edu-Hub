@@ -1,0 +1,409 @@
+:root {
+    --background: #ffffff;
+    --foreground: #000000;
+    --card: #ffffff;
+    --card-foreground: #000000;
+    --primary: #3b82f6;
+    --primary-foreground: #ffffff;
+    --secondary: #3b82f6;
+    --accent: #3b82f6;
+    --muted: #f1f5f9;
+    --muted-foreground: #6b7280;
+    --border: #d1d5db;
+    --radius: 0.5rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    background-color: var(--background);
+    color: var(--foreground);
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Header (Updated Grid Layout with Logo Emoji) */
+.header {
+    background-color: var(--background);
+    box-shadow: 0 2px 10px #3b82f6;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0.3rem 1rem;
+    display: grid;
+    grid-template-columns: 1.5fr auto 1fr;
+    align-items: center;
+}
+
+.logo {
+    position: fixed;
+    left: 50px;
+    top: 12px;
+    grid-column: 0;
+    justify-self: center;
+    font-family: "Work Sans", sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.logo::before {
+    content: "🎓";
+    font-size: 2rem;
+    animation: bounce 2s infinite;
+}
+
+.user-profile {
+    grid-column: 3;
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--muted);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    border: 1px solid var(--border);
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-image: url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=500&q=80');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Main Content */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* User Role */
+.user-role {
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+/* Dark Mode (Updated) */
+body.dark-mode {
+    --background: #181818;
+    --foreground: #f1f1f1;
+    --card: #222222;
+    --card-foreground: #f1f1f1;
+    --muted: #333333;
+    --muted-foreground: #b0b0b0;
+    --border: #444444;
+}
+
+body.dark-mode .header {
+    background-color: #1f1f1f;
+    box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
+}
+
+body.dark-mode .user-profile {
+    background-color: #2a2a2a;
+}
+
+body.dark-mode .user-role {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Page Titles */
+.page-title {
+    font-family: "Work Sans", sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--foreground);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.page-subtitle {
+    font-size: 1.1rem;
+    color: var(--muted-foreground);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Classes Timeline */
+.classes-timeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+}
+
+.class-block {
+    background-color: var(--card);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.class-block:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.class-block.active {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.class-time {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.class-time.attended { color: #10b981; }
+.class-time.absent { color: #ef4444; }
+.class-time.upcoming { color: #f59e0b; }
+
+.class-name {
+    font-weight: 600;
+    color: var(--foreground);
+    margin-bottom: 0.3rem;
+}
+
+.class-room {
+    color: var(--muted-foreground);
+    font-size: 0.9rem;
+}
+
+/* Attendance Section */
+.attendance-section {
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.attendance-bar {
+    display: flex;
+    height: 40px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border);
+}
+
+.attendance-segment {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.attendance-segment:hover { opacity: 0.8; }
+
+.segment-attended { background-color: #10b981; }
+.segment-absent { background-color: #ef4444; }
+.segment-upcoming { background-color: #f59e0b; }
+
+.attendance-stats {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.stat-item { flex: 1; }
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.stat-label {
+    color: var(--muted-foreground);
+    font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header { padding: 1rem; }
+    .container { padding: 1rem; }
+    .classes-timeline { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.5rem; }
+    .class-actions { flex-direction: column; }
+    .attendance-stats { flex-direction: column; gap: 1rem; }
+}
+
+/* Added Dark Mode Toggle Styles */
+.dark-mode-switch {
+ position: fixed;
+ bottom: 20px;
+ left: 30px;
+ display: flex;
+ align-items: center;
+ cursor: pointer;
+ z-index: 100;
+}
+
+.dark-mode-switch input {
+ display: none;
+}
+
+.dark-mode-switch .slider {
+ width: 40px;
+ height: 20px;
+ background: #ccc;
+ border-radius: 20px;
+ position: relative;
+ transition: background 0.3s;
+}
+
+/* Added moon icon style */
+.dark-mode-switch i {
+    color: var(--muted-foreground);
+    margin-left: 8px;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.dark-mode-switch .slider:before {
+ content: "";
+ position: absolute;
+ left: 2px;
+ top: 2px;
+ width: 16px;
+ height: 16px;
+ background: #fff;
+ border-radius: 50%;
+ transition: transform 0.3s;
+}
+
+.dark-mode-switch input:checked + .slider {
+ background: #333;
+}
+
+.dark-mode-switch input:checked + .slider:before {
+ transform: translateX(20px);
+ background: #000000;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+--background: #181818;
+--foreground: #f1f1f1;
+--card: #222222;
+--card-foreground: #f1f1f1;
+--muted: #333333;
+--muted-foreground: #b0b0b0;
+ -border: #444444;
+}
+
+/* Default (light mode) */
+.user-role {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* Dark mode */
+.dark-mode .user-role {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+body.dark-mode .header {
+ background-color: #1f1f1f;
+ box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
+}
+
+body.dark-mode .user-profile {
+ background-color: #2a2a2a;
+}
+
+/* Added moon icon style for dark mode */
+body.dark-mode .dark-mode-switch i {
+    color: var(--foreground);
+}
+
+body.dark-mode .class-slot {
+ background-color: #2c3e50; /* Dark blue background */
+ color: #ecf0f1;
+}
+
+body.dark-mode .class-slot.current {
+ background-color: #34495e;
+ border-color: var(--accent);
+}
+
+/* General button styles */
+.btn {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  margin: 5px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Primary button (AI Summary) */
+.btn-primary {
+  background-color: #3b82f6; /* Blue */
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb; /* Darker blue */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Secondary button (Download Lecture) */
+.btn-secondary {
+  background-color: #e5e7eb; /* Light gray */
+  color: #111;
+}
+
+.btn-secondary:hover {
+  background-color: #d1d5db;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Dark mode overrides */
+body.dark-mode .btn-primary {
+  background-color: #3b82f6;
+  color: #fff;
+  border: 1px solid #3b82f6;
+}
+
+body.dark-mode .btn-primary:hover {
+  background-color: #2563eb;
+}
+
+body.dark-mode .btn-secondary {
+  background-color: #2a2a2a;
+  color: #f1f1f1;
+  border: 1px solid #444;
+}
+
+body.dark-mode .btn-secondary:hover {
+  background-color: #444;
+}
