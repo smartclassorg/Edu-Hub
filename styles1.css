@@ -1,3 +1,27 @@
+/* Eduhub logo and text top left corner */
+.eduhub-logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.eduhub-logo img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.eduhub-logo span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
 :root {
   --background: #ffffff;
   --foreground: #000000;
@@ -52,13 +76,22 @@ body {
 }
 
 .logo {
-  grid-column: 2;
+  position: fixed;
+  left: 50px;
+  top: 12px;
+  grid-column: 0;
   justify-self: center; /* Center logo in its column */
   font-family: "Work Sans", sans-serif;
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #3b82f6;
 }
+
+.logo::before {
+            content: "🎓";
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+        }
 
 .header-right {
   grid-column: 3;
@@ -66,10 +99,12 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
+
 }
 
 /* Added for consistency */
 .user-profile {
+  grid-column: 3;
     display: flex;
     align-items: center;
     gap: 1rem;

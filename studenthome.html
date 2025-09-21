@@ -11,7 +11,7 @@
 <body>
     <header class="header">
         <nav class="nav">
-            <div class="logo">EduHub</div>
+            <div class="logo" style="font-weight: 800;">EduHub</div>
             <div class="header-right">
                   <div class="user-profile">
             <div class="avatar"></div>
@@ -31,13 +31,34 @@
 
     <section class="hero" id="home">
         <div class="container">
-            <h1 class="fade-in-up">Welcome Alex Chen</h1>
+            <h1 class="fade-in-up">Welcome Alex Chen! 🌟</h1>
             <p class="fade-in-up">Your comprehensive learning platform designed to streamline education management and enhance the learning experience for Students.</p>
         </div>
     </section>
 
-    <section class="main-nav">
-        <div class="container">
+        <section class="main-nav">
+                <div class="container">
+        <script>
+            // Dark mode toggle functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                const darkModeToggle = document.getElementById('darkModeToggle');
+                const body = document.body;
+                // Set initial state from localStorage
+                if (localStorage.getItem('darkMode') === 'enabled') {
+                    body.classList.add('dark-mode');
+                    darkModeToggle.checked = true;
+                }
+                darkModeToggle.addEventListener('change', function() {
+                    if (darkModeToggle.checked) {
+                        body.classList.add('dark-mode');
+                        localStorage.setItem('darkMode', 'enabled');
+                    } else {
+                        body.classList.remove('dark-mode');
+                        localStorage.setItem('darkMode', 'disabled');
+                    }
+                });
+            });
+        </script>
             <div class="nav-grid">
                 <div class="nav-card fade-in-up" onclick="handleNavigation('timetable')">
                     <div class="icon">
