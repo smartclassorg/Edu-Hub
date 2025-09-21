@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Attendance Tracking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --background: #ffffff;
+            --foreground: #000000;
+            --card: #ffffff;
+            --card-foreground: #000000;
+            --primary: #3b82f6;
+            --primary-foreground: #ffffff;
+            --secondary: #3b82f6;
+            --accent: #3b82f6;
+            --muted: #f1f5f9;
+            --muted-foreground: #6b7280;
+            --border: #d1d5db;
+            --radius: 0.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Open Sans", sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--background);
+            box-shadow: 0 2px 10px #3b82f6;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 0.3rem 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: "Work Sans", sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .user-profile {
+            grid-column: 3;
+            justify-self: end;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background-color: var(--muted);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .welcome-title {
+            font-family: "Work Sans", sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--foreground);
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.2rem;
+            color: var(--muted-foreground);
+            margin-bottom: 2rem;
+        }
+
+        /* Timeline Blocks */
+        .timeline-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-family: "Work Sans", sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--foreground);
+        }
+
+        .timeline-blocks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-block {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.1);
+            border-color: var(--primary);
+        }
+
+        .timeline-block.active {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .block-time {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .block-course {
+            font-family: "Work Sans", sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--foreground);
+            margin-bottom: 0.3rem;
+        }
+
+        .block-room {
+            color: var(--muted-foreground);
+            font-size: 0.9rem;
+        }
+
+        /* Attendance Ratio Chart */
+        .attendance-ratio {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .ratio-title {
+            font-family: "Work Sans", sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--foreground);
+        }
+
+        .ratio-bar {
+            width: 100%;
+            height: 30px;
+            background-color: var(--muted);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .ratio-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #3b82f6);
+            border-radius: 15px;
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .ratio-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--muted-foreground);
+        }
+
+        /* Expanded Detail Block */
+        .expanded-detail {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .expanded-detail.show {
+            display: block;
+            animation: fadeInUp 0.3s ease-out;
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .detail-title {
+            font-family: "Work Sans", sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--foreground);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--muted-foreground);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background-color: var(--muted);
+            color: var(--foreground);
+        }
+
+        .attendance-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-card {
+            background-color: var(--muted);
+            border-radius: var(--radius);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .summary-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-label {
+            color: var(--muted-foreground);
+            font-size: 0.9rem;
+        }
+
+        /* Collapsible Lists */
+        .student-lists {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .student-list {
+            background-color: var(--muted);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .list-header {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .list-header:hover {
+            background-color: rgba(59, 130, 246, 0.9);
+        }
+
+        .list-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .list-content.open {
+            max-height: 300px;
+        }
+
+        .student-item {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .student-item:last-child {
+            border-bottom: none;
+        }
+
+        .student-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-foreground);
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                grid-template-columns: 1fr auto 1fr;
+                padding: 1rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+            .timeline-blocks {
+                grid-template-columns: 1fr;
+            }
+            .student-lists {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">EduHub</div>
+        <div class="user-profile">
+            <div class="avatar"></div>
+            <span>Prof. Johnson</span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <h1 class="welcome-title">Professor Dashboard</h1>
+            <p class="welcome-subtitle">Track and manage student attendance across all your classes</p>
+        </section>
+
+        <!-- Timeline Section -->
+        <section class="timeline-section">
+            <h2 class="section-title">Today's Classes</h2>
+            <div class="timeline-blocks" id="timelineBlocks">
+                <!-- Timeline blocks will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Attendance Ratio Chart -->
+        <section class="attendance-ratio">
+            <h3 class="ratio-title">Today's Overall Attendance</h3>
+            <div class="ratio-bar">
+                <div class="ratio-fill" id="ratioFill" style="width: 0%"></div>
+            </div>
+            <div class="ratio-stats">
+                <span id="presentTotal">Present: 0</span>
+                <span id="absentTotal">Absent: 0</span>
+            </div>
+        </section>
+
+        <!-- Expanded Detail Block -->
+        <section class="expanded-detail" id="expandedDetail">
+            <div class="detail-header">
+                <h3 class="detail-title" id="detailTitle">Class Details</h3>
+                <button class="close-btn" id="closeBtn">&times;</button>
+            </div>
+            
+            <div class="attendance-summary">
+                <div class="summary-card">
+                    <div class="summary-number" id="presentCount">0</div>
+                    <div class="summary-label">Present</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-number" id="absentCount">0</div>
+                    <div class="summary-label">Absent</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-number" id="attendanceRate">0%</div>
+                    <div class="summary-label">Attendance Rate</div>
+                </div>
+            </div>
+
+            <div class="student-lists">
+                <div class="student-list">
+                    <div class="list-header" id="presentHeader">
+                        <span>Present Students</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="list-content" id="presentList">
+                        <!-- Present students will be populated here -->
+                    </div>
+                </div>
+                
+                <div class="student-list">
+                    <div class="list-header" id="absentHeader">
+                        <span>Absent Students</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="list-content" id="absentList">
+                        <!-- Absent students will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Sample data for today's classes
+        const classesData = [
+            {
+                id: 1,
+                time: "09:00 AM",
+                course: "Computer Science 101",
+                room: "Room A-201",
+                presentStudents: [
+                    { name: "Alice Johnson", id: "CS001" },
+                    { name: "Bob Smith", id: "CS002" },
+                    { name: "Carol Davis", id: "CS003" },
+                    { name: "David Wilson", id: "CS004" },
+                    { name: "Emma Brown", id: "CS005" }
+                ],
+                absentStudents: [
+                    { name: "Frank Miller", id: "CS006" },
+                    { name: "Grace Lee", id: "CS007" }
+                ]
+            },
+            {
+                id: 2,
+                time: "11:00 AM",
+                course: "Data Structures",
+                room: "Room B-105",
+                presentStudents: [
+                    { name: "Henry Taylor", id: "DS001" },
+                    { name: "Ivy Chen", id: "DS002" },
+                    { name: "Jack Robinson", id: "DS003" },
+                    { name: "Kate Anderson", id: "DS004" }
+                ],
+                absentStudents: [
+                    { name: "Liam Garcia", id: "DS005" },
+                    { name: "Mia Martinez", id: "DS006" },
+                    { name: "Noah Thompson", id: "DS007" }
+                ]
+            },
+            {
+                id: 3,
+                time: "02:00 PM",
+                course: "Web Development",
+                room: "Room C-301",
+                presentStudents: [
+                    { name: "Olivia White", id: "WD001" },
+                    { name: "Peter Harris", id: "WD002" },
+                    { name: "Quinn Clark", id: "WD003" },
+                    { name: "Rachel Lewis", id: "WD004" },
+                    { name: "Sam Walker", id: "WD005" },
+                    { name: "Tina Hall", id: "WD006" }
+                ],
+                absentStudents: [
+                    { name: "Uma Young", id: "WD007" }
+                ]
+            },
+            {
+                id: 4,
+                time: "04:00 PM",
+                course: "Database Systems",
+                room: "Room D-202",
+                presentStudents: [
+                    { name: "Victor King", id: "DB001" },
+                    { name: "Wendy Scott", id: "DB002" },
+                    { name: "Xavier Green", id: "DB003" }
+                ],
+                absentStudents: [
+                    { name: "Yara Adams", id: "DB004" },
+                    { name: "Zoe Baker", id: "DB005" },
+                    { name: "Alex Cooper", id: "DB006" },
+                    { name: "Blake Turner", id: "DB007" }
+                ]
+            }
+        ];
+
+        // DOM elements
+        const timelineBlocks = document.getElementById('timelineBlocks');
+        const expandedDetail = document.getElementById('expandedDetail');
+        const closeBtn = document.getElementById('closeBtn');
+        const detailTitle = document.getElementById('detailTitle');
+        const presentCount = document.getElementById('presentCount');
+        const absentCount = document.getElementById('absentCount');
+        const attendanceRate = document.getElementById('attendanceRate');
+        const presentList = document.getElementById('presentList');
+        const absentList = document.getElementById('absentList');
+        const presentHeader = document.getElementById('presentHeader');
+        const absentHeader = document.getElementById('absentHeader');
+        const ratioFill = document.getElementById('ratioFill');
+        const presentTotal = document.getElementById('presentTotal');
+        const absentTotal = document.getElementById('absentTotal');
+
+        // Initialize the page
+        function init() {
+            renderTimelineBlocks();
+            updateOverallAttendance();
+        }
+
+        // Render timeline blocks
+        function renderTimelineBlocks() {
+            timelineBlocks.innerHTML = '';
+            classesData.forEach(classData => {
+                const block = document.createElement('div');
+                block.className = 'timeline-block';
+                block.innerHTML = `
+                    <div class="block-time">${classData.time}</div>
+                    <div class="block-course">${classData.course}</div>
+                    <div class="block-room">${classData.room}</div>
+                `;
+                block.addEventListener('click', () => showClassDetails(classData));
+                timelineBlocks.appendChild(block);
+            });
+        }
+
+        // Show class details in expanded view
+        function showClassDetails(classData) {
+            // Update active state
+            document.querySelectorAll('.timeline-block').forEach(block => {
+                block.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+
+            // Populate detail view
+            detailTitle.textContent = `${classData.course} - ${classData.time}`;
+            presentCount.textContent = classData.presentStudents.length;
+            absentCount.textContent = classData.absentStudents.length;
+            
+            const total = classData.presentStudents.length + classData.absentStudents.length;
+            const rate = total > 0 ? Math.round((classData.presentStudents.length / total) * 100) : 0;
+            attendanceRate.textContent = `${rate}%`;
+
+            // Populate student lists
+            populateStudentList(presentList, classData.presentStudents);
+            populateStudentList(absentList, classData.absentStudents);
+
+            // Show expanded detail
+            expandedDetail.classList.add('show');
+            expandedDetail.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Populate student list
+        function populateStudentList(container, students) {
+            container.innerHTML = '';
+            students.forEach(student => {
+                const item = document.createElement('div');
+                item.className = 'student-item';
+                const initials = student.name.split(' ').map(n => n[0]).join('');
+                item.innerHTML = `
+                    <div class="student-avatar">${initials}</div>
+                    <span>${student.name}</span>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // Update overall attendance ratio
+        function updateOverallAttendance() {
+            let totalPresent = 0;
+            let totalAbsent = 0;
+
+            classesData.forEach(classData => {
+                totalPresent += classData.presentStudents.length;
+                totalAbsent += classData.absentStudents.length;
+            });
+
+            const total = totalPresent + totalAbsent;
+            const percentage = total > 0 ? (totalPresent / total) * 100 : 0;
+
+            ratioFill.style.width = `${percentage}%`;
+            presentTotal.textContent = `Present: ${totalPresent}`;
+            absentTotal.textContent = `Absent: ${totalAbsent}`;
+        }
+
+        // Close expanded detail
+        closeBtn.addEventListener('click', () => {
+            expandedDetail.classList.remove('show');
+            document.querySelectorAll('.timeline-block').forEach(block => {
+                block.classList.remove('active');
+            });
+        });
+
+        // Toggle collapsible lists
+        presentHeader.addEventListener('click', () => {
+            const content = presentList;
+            const icon = presentHeader.querySelector('i');
+            content.classList.toggle('open');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        });
+
+        absentHeader.addEventListener('click', () => {
+            const content = absentList;
+            const icon = absentHeader.querySelector('i');
+            content.classList.toggle('open');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        });
+
+        // Initialize the application
+        init();
+    </script>
+</body>
+</html>
