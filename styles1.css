@@ -65,6 +65,10 @@ body {
   z-index: 100;
   padding: 0.3rem 1rem;
   border-bottom: 1px solid var(--border);
+  /* Added grid layout for positioning */
+  display: grid;
+  grid-template-columns: 1.5fr auto 1fr;
+  align-items: center;
 }
 
 .nav {
@@ -88,30 +92,22 @@ body {
 }
 
 .logo::before {
-            content: "🎓";
-            font-size: 2rem;
-            animation: bounce 2s infinite;
-        }
-
-.header-right {
-  grid-column: 3;
-  justify-self: end; /* Pushes group to the far right */
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-
+  content: "🎓";
+  font-size: 2rem;
+  animation: bounce 2s infinite;
 }
 
 /* Added for consistency */
 .user-profile {
   grid-column: 3;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background-color: var(--muted);
-    padding: 0.5rem 1rem;
-    border-radius: 50px;
-    border: 1px solid var(--border);
+  justify-self: end; /* Pushes group to the far right */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--muted);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  border: 1px solid var(--border);
 }
 
 .avatar {

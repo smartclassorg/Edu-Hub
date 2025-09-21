@@ -8,7 +8,6 @@ function handleNavigation(section) {
   // Log navigation
   console.log(`Navigating to ${section} section`)
 
-  // --- THIS IS THE MODIFIED PART ---
   if (section === 'timetable') {
     // Redirect to the timetable page
     window.location.href = 'tt.html';
@@ -21,29 +20,43 @@ function handleNavigation(section) {
     alert(`Navigating to ${sectionNames[section]} page...`)
   }
 }
-  // Log navigation (in a real app, this would navigate to the respective page)
-  console.log(`Navigating to ${section} section`)
 
-  // Show alert for demonstration
-  const sectionNames = {
-    timetable: "Timetable",
-    attendance: "Attendance",
-    smartboard: "Smart Board Sessions",
+
+// Toggle dark mode - More robust version
+function initializeDarkMode() {
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const body = document.body;
+  
+  if (!darkModeToggle) {
+    console.error('Dark mode toggle not found');
+    return;
   }
-
-  alert(`Navigating to ${sectionNames[section]} page...`)
-
-
-// Toggle dark mode
-document.getElementById("darkModeToggle").addEventListener("change", function () {
-  document.body.classList.toggle("dark-mode", this.checked)
-})
-
-document.addEventListener("click", (e) => {
-  if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
-    sidebar.classList.remove("active")
+  
+  // Set initial state from localStorage
+  const savedMode = localStorage.getItem('darkMode');
+  if (savedMode === 'enabled') {
+    body.classList.add('dark-mode');
+    darkModeToggle.checked = true;
   }
-})
+  
+  // Add event listener
+  darkModeToggle.addEventListener('change', function() {
+    if (this.checked) {
+      body.classList.add('dark-mode');
+      localStorage.setItem('darkMode', 'enabled');
+    } else {
+      body.classList.remove('dark-mode');
+      localStorage.setItem('darkMode', 'disabled');
+    }
+  });
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeDarkMode);
+} else {
+  initializeDarkMode();
+}
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
