@@ -11,10 +11,15 @@ function handleNavigation(section) {
   if (section === 'timetable') {
     // Redirect to the timetable page
     window.location.href = 'tt.html';
-  } else {
+  }else if (section === 'attendance') {
+    // Redirect to the attendance page
+    window.location.href = 'attendancepage-stud.html';
+  }/*else if (section === 'smartboard') {
+    // Redirect to the attendance page
+    window.location.href = 'insert-file-name.html';
+  }*/ else {
     // Show alert for other sections for demonstration
     const sectionNames = {
-      attendance: "Attendance",
       smartboard: "Smart Board Sessions",
     }
     alert(`Navigating to ${sectionNames[section]} page...`)
