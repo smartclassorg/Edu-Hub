@@ -10,7 +10,7 @@ function handleNavigation(section) {
 
   if (section === 'timetable') {
     // Redirect to the timetable page
-    window.location.href = 'tt.html';
+    window.location.href = 'tt-prof.html';
   }else if (section === 'attendance') {
     // Redirect to the attendance page
     window.location.href = 'attendancepage-prof.html';
