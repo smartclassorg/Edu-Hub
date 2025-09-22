@@ -45,7 +45,7 @@ function App() {
       <div className="App">
         <header className="header">
           <div className="logo">
-            <i className="fas fa-graduation-cap"></i>
+            <span style={{fontSize: '2rem', verticalAlign: 'middle', marginRight: '0.5rem'}}>🎓</span>
             <span>EduHub</span>
           </div>
         </header>
