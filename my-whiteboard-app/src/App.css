@@ -2,24 +2,42 @@ html, body, #root, .App, .whiteboard-page, .whiteboard-main {
   height: 100%;
   margin: 0;
   padding: 0;
+  transition: all 0.3s ease;
 }
 
 .App {
-  text-align: center;
   min-height: 100vh;
   background-color: #f5f5f5;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.App-header {
-  background-color: #282c34;
-  padding: 20px;
-  color: white;
-  margin-bottom: 20px;
+/* EduHub Header Styles */
+.header {
+  background: white;
+  padding: 15px 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid #e9ecef;
+  transition: all 0.3s ease;
 }
 
-.App-header h1 {
-  margin: 0;
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #4285f4;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  transition: color 0.3s ease;
+}
+
+.logo i {
   font-size: 2rem;
+  color: #6f42c1;
+  transition: color 0.3s ease;
 }
 
 /* Whiteboard Page Styles */
@@ -37,6 +55,7 @@ html, body, #root, .App, .whiteboard-page, .whiteboard-main {
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #dee2e6;
+  transition: all 0.3s ease;
 }
 
 .whiteboard-controls {
@@ -49,6 +68,7 @@ html, body, #root, .App, .whiteboard-page, .whiteboard-main {
   margin: 0;
   color: #333;
   font-size: 1.2em;
+  transition: color 0.3s ease;
 }
 
 .control-buttons {
@@ -64,13 +84,16 @@ html, body, #root, .App, .whiteboard-page, .whiteboard-main {
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.9em;
-  transition: background 0.2s;
+  transition: all 0.3s ease;
   text-decoration: none;
   display: inline-block;
+  font-weight: 500;
 }
 
 .control-btn:hover {
   background: #218838;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .clear-btn {
@@ -115,7 +138,7 @@ html, body, #root, .App, .whiteboard-page, .whiteboard-main {
 .whiteboard-content {
   flex: 1;
   display: flex;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 140px);
 }
 
 .whiteboard-main {
@@ -128,6 +151,7 @@ html, body, #root, .App, .whiteboard-page, .whiteboard-main {
   background: #f8f9fa;
   padding: 20px;
   overflow-y: auto;
+  transition: all 0.3s ease;
 }
 
 /* Excalidraw Wrapper Styles */
@@ -151,6 +175,14 @@ html, body, #root, .App, .whiteboard-page, .whiteboard-main {
   border-radius: 8px;
   margin-bottom: 20px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.session-details:hover,
+.ai-summary-section:hover,
+.session-stats:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
 }
 
 .session-details h3,
@@ -160,6 +192,7 @@ html, body, #root, .App, .whiteboard-page, .whiteboard-main {
   color: #333;
   border-bottom: 2px solid #3498db;
   padding-bottom: 8px;
+  transition: color 0.3s ease;
 }
 
 .session-info p,
@@ -167,6 +200,7 @@ html, body, #root, .App, .whiteboard-page, .whiteboard-main {
   margin: 8px 0;
   color: #555;
   font-size: 0.9em;
+  transition: color 0.3s ease;
 }
 
 .generate-summary-btn {
@@ -252,4 +286,184 @@ html, body, #root, .App, .whiteboard-page, .whiteboard-main {
   .whiteboard-controls {
     justify-content: center;
   }
+}
+
+/* Dark Mode Toggle Styles */
+.dark-mode-switch {
+  position: fixed;
+  bottom: 20px;
+  right: 30px; /* Positioned on the right as requested */
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1001; /* Higher than header z-index */
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px 12px;
+  border-radius: 25px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.dark-mode-switch:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode-switch input {
+  display: none;
+}
+
+.dark-mode-switch .slider {
+  width: 40px;
+  height: 20px;
+  background: #ddd;
+  border-radius: 20px;
+  margin-right: 8px;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode-switch .slider:before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode-switch input:checked + .slider {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.dark-mode-switch input:checked + .slider:before {
+  transform: translateX(20px);
+  background: #1a1a1a;
+}
+
+.dark-mode-switch i {
+  color: #666;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+/* Dark mode toggle container in dark mode */
+body.dark-mode .dark-mode-switch {
+  background: rgba(42, 42, 42, 0.9);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .dark-mode-switch i {
+  color: #fbbf24; /* Golden color for moon icon in dark mode */
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background: #181818;
+  color: #f1f1f1;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .App {
+  background: #181818;
+  color: #f1f1f1;
+}
+
+body.dark-mode .header {
+  background: #1f1f1f;
+  box-shadow: 0 2px 10px 0px #3b82f6;
+  border-bottom: 1px solid white;
+}
+
+body.dark-mode .logo {
+  color: #60a5fa; /* Brighter blue for better visibility */
+}
+
+body.dark-mode .logo i {
+  color: #a78bfa; /* Brighter purple for better visibility */
+}
+
+body.dark-mode .page-header {
+  background: #222;
+  border-bottom: 1px solid #333;
+  color: #f1f1f1;
+}
+
+body.dark-mode .whiteboard-controls h3 {
+  color: #e5e7eb; /* Light grey for better readability */
+}
+
+body.dark-mode .sidebar {
+  background: #222;
+  color: #f1f1f1;
+}
+
+body.dark-mode .session-details,
+body.dark-mode .ai-summary-section,
+body.dark-mode .session-stats {
+  background: #2a2a2a;
+  color: #f1f1f1;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  border: 1px solid #3a3a3a;
+}
+
+body.dark-mode .session-details h3,
+body.dark-mode .ai-summary-section h3,
+body.dark-mode .session-stats h3 {
+  color: #60a5fa; /* Bright blue for headings */
+  border-bottom-color: #60a5fa;
+}
+
+body.dark-mode .session-info p,
+body.dark-mode .stats-info p {
+  color: #d1d5db; /* Light grey for better readability */
+}
+
+body.dark-mode .control-btn {
+  background: #3b82f6;
+  color: white;
+  font-weight: 600;
+}
+
+body.dark-mode .control-btn:hover {
+  background: #2563eb;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+body.dark-mode .clear-btn {
+  background: #ef4444;
+}
+
+body.dark-mode .clear-btn:hover {
+  background: #dc2626;
+}
+
+body.dark-mode .new-session-btn {
+  background: #ef4444;
+}
+
+body.dark-mode .new-session-btn:hover {
+  background: #dc2626;
+}
+
+body.dark-mode .share-btn {
+  background: #06b6d4;
+}
+
+body.dark-mode .share-btn:hover {
+  background: #0891b2;
+}
+
+body.dark-mode .whiteboard-main {
+  background: #1a1a1a;
+}
+
+body.dark-mode .dark-mode-switch i {
+  color: #fbbf24; /* Golden color for moon icon in dark mode */
 }
