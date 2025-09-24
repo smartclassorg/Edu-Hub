@@ -142,6 +142,9 @@
                     <button class="btn btn-secondary" onclick="downloadLecture('${classItem.course}')">
                         Download Lecture
                     </button>
+                    <button class="btn btn-success" onclick="openWhiteboard('${classItem.course}')">
+                        Open Notes
+                    </button>
                 `;
             }
             // Upcoming classes now have no action buttons
@@ -173,6 +176,10 @@
 
         function downloadLecture(course) {
             alert(`Downloading lecture materials for ${course}.\n\nThis would initiate a download of lecture slides, recordings, and supplementary materials.`);
+        }
+
+        function openWhiteboard(course) {
+            window.location.href = 'https://smartboard-and-attendance.web.app/';
         }
 
         function markAttendance(classId) {
