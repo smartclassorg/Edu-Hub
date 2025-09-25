@@ -14,14 +14,11 @@ function handleNavigation(section) {
   }else if (section === 'attendance') {
     // Redirect to the attendance page
     window.location.href = 'attendancepage-prof.html';
-  }/*else if (section === 'smartboard') {
+  }else if (section === 'smartboard') {
     // Redirect to the attendance page
-    window.location.href = 'insert-file-name.html';
-  }*/ else {
+    window.location.href = 'https://smartboard-and-attendance.web.app/';
+  }else {
     // Show alert for other sections for demonstration
-    const sectionNames = {
-      smartboard: "Smart Board Sessions",
-    }
     alert(`Navigating to ${sectionNames[section]} page...`)
   }
 }
