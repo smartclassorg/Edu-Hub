@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance System</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            transition: background-color 0.5s;
+        }
+        button { 
+            padding: 10px 20px; 
+            font-size: 16px; 
+            margin: 10px; 
+            cursor: pointer;
+        }
+        #log { 
+            border: 1px solid #ccc; 
+            padding: 15px; 
+            min-height: 300px; 
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .message { 
+            padding: 8px; 
+            margin: 5px 0; 
+            border-left: 4px solid #007bff;
+        }
+        .detection { 
+            border-left-color: #28a745; 
+            background-color: #d4edda;
+        }
+        .status { 
+            border-left-color: #17a2b8; 
+            background-color: #d1ecf1;
+        }
+        .error { 
+            border-left-color: #dc3545; 
+            background-color: #f8d7da;
+        }
+        .connection { 
+            border-left-color: #6c757d; 
+            background-color: #e2e3e5;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎓 Professor's Attendance Dashboard</h1>
+    
+    <div>
+        <button onclick="startAttendance()"> Start Attendance</button>
+        <button onclick="checkStatus()"> Check Status</button>
+        <button onclick="testBeacon()"> Test Beacon</button>
+    </div>
+
+    <h2> Live Activity Log:</h2>
+    <div id="log">
+        <div class="message connection">Page loaded. Click 'Start Attendance' to begin monitoring.</div>
+    </div>
+
+    <script>
+        let eventSource = null;
+        let isConnected = false;
+
+        function startAttendance() {
+            fetch('/start', { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                addLogMessage(" " + data.message, "status");
+                connectSSE();
+            })
+            .catch(error => {
+                addLogMessage(" Error starting attendance: " + error.message, "error");
+            });
+        }
+
+        function checkStatus() {
+            fetch('/status')
+                .then(response => response.json())
+                .then(data => {
+                    addLogMessage(` Server: ${data.server}, Attendance Active: ${data.attendance_active}, Queued Messages: ${data.message_queue_length}`, "status");
+                })
+                .catch(error => {
+                    addLogMessage(" Status check failed: " + error.message, "error");
+                });
+        }
+
+        function testBeacon() {
+            
+            fetch('/beacon'), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({student_id: "TEST-123"})
+            }
+            .then(response => {
+                if (response.ok) {
+                    addLogMessage(" Test beacon sent successfully", "status");
+                } else {
+                    addLogMessage(" Test beacon failed: " + response.status, "error");
+                }
+            })
+            .catch(error => {
+                addLogMessage(" Test beacon error: " + error.message, "error");
+            });
+        }
+
+        function connectSSE() {
+            if (eventSource) {
+                eventSource.close();
+            }
+
+            eventSource = new EventSource('/stream');
+            
+            eventSource.onopen = function() {
+                isConnected = true;
+                addLogMessage(" Real-time connection established", "connection");
+            };
+
+            eventSource.onmessage = function(event) {
+                try {
+                    const data = JSON.parse(event.data);
+                    if (data.message) {
+                        if (data.message.includes('Student')) {
+                            addLogMessage(".. " + data.message, "detection");
+                            
+                            document.body.style.backgroundColor = '#d4edda';
+                            setTimeout(() => { document.body.style.backgroundColor = ''; }, 1000);
+                        } else {
+                            addLogMessage("i " + data.message, "status");
+                        }
+                    }
+                } catch (e) {
+                    console.log('SSE message:', event.data);
+                }
+            };
+
+            eventSource.onerror = function(event) {
+                isConnected = false;
+                addLogMessage("Real-time connection lost. Reconnecting...", "error");
+                eventSource.close();
+                setTimeout(connectSSE, 5000);
+            };
+        }
+
+        function addLogMessage(message, type) {
+            const logElement = document.getElementById('log');
+            const newMessage = document.createElement('div');
+            newMessage.className = `message ${type}`;
+            
+            const timestamp = new Date().toLocaleTimeString();
+            newMessage.innerHTML = `<small>${timestamp}</small> - ${message}`;
+            
+            logElement.appendChild(newMessage);
+            logElement.scrollTop = logElement.scrollHeight;
+            
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+
+        
+        window.onload = function() {
+            checkStatus();
+            connectSSE(); 
+        };
+    </script>
+</body>
+</html>
